@@ -16,6 +16,19 @@
             <DataTemplate DataType="{x:Type vm:ImageViewModel}">
                 <views:ImageView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RecipeManagerViewModel}">
+                <views:RecipeManagerView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:MessageModalViewModel}">
+                <views:MessageModalView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ConfirmModalViewModel}">
+                <views:ConfirmModalView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:TextInputModalViewModel}">
+                <views:TextInputModalView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

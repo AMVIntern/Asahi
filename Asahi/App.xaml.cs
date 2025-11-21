@@ -40,11 +40,31 @@ namespace Asahi
                     .AddSingleton<ImageAcquisitionModel>()
                     .AddSingleton<CameraFrameGrabber>()
                     .AddSingleton<ImageLogger>()
-                    .AddSingleton<ImageLoggingService>();
+                    .AddSingleton<ImageLoggingService>()
+                    .AddSingleton<RecipeManagerViewModel>()
+                    .AddSingleton<NavigationBarViewModel>(provider =>
+                    {
+                        var navigationStore = provider.GetRequiredService<NavigationStore>();
+                        var modalStore = provider.GetRequiredService<ModalStore>();
+                       
+                        return new NavigationBarViewModel(
+                            navigationStore,
+                            () => provider.GetRequiredService<HomeViewModel>(),
+                            () => provider.GetRequiredService<RecipeManagerViewModel>(),
+                            modalStore);
+                    })
+                    .AddSingleton<JSONDataService>()
+                    .AddSingleton<DefaultRecipeValuesModel>()
+                    .AddSingleton<RecipeParameterStore>()
+                    .AddSingleton<RecipeStore>()
+                    .AddSingleton<ModalStore>();
                 }).Build();
         }
         protected override async void OnStartup(StartupEventArgs e)
         {
+            var recipeManagerViewModel = _host.Services.GetRequiredService<RecipeManagerViewModel>();
+            await recipeManagerViewModel.InitializeAsync();
+
             var navigationStore = _host.Services.GetRequiredService<NavigationStore>();
             var homeViewModel = _host.Services.GetRequiredService<HomeViewModel>();
             navigationStore.CurrentViewModel = homeViewModel;

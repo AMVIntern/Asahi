@@ -17,7 +17,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <uc:HeaderRow Grid.Row="0" />
         <Grid Grid.Row="1">
@@ -26,7 +25,42 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ContentControl Grid.Column="1"
-        Content="{Binding CurrentViewModel}"/>           
+        Content="{Binding CurrentViewModel}"/>
+            <Border Grid.Column="1"
+        Background="Transparent"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <uc:NavigationBar Grid.Row="0"
+                          DataContext="{Binding NavigationBarViewModel}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"/>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1"
+        Width="5"
+        Background="#444"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Stretch">
+                <Button Margin="0,80, 20, 0"
+    Style="{StaticResource NavigationPrimaryButton}"
+    Content="Home" />
+            </Border>
+        </Grid>
+        
+        <!-- Modal Overlay -->
+        <Grid Grid.RowSpan="2"
+              Background="#80000000"
+              Visibility="{Binding IsModalOpen, Converter={StaticResource BoolToVisibilityConverter}}"
+              Panel.ZIndex="999"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            <ContentControl Content="{Binding ModalViewModel}" />
         </Grid>
     </Grid>
 </Window>

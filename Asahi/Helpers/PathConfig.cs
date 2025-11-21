@@ -14,6 +14,8 @@ namespace Asahi.Helpers
         public static string HalconFolder => Path.Combine(BasePath, "Halcon");
         public static string ModelsFolder => Path.Combine(BasePath, "Models");
         public static string LocalImagePath => Path.Combine(BasePath, "Images");
+        public static string RecipesFolder => Path.Combine(BasePath, "Recipes");
+        public static string AppConfigFile => Path.Combine(BasePath, "Configurations", "AppConfig.json");
 
         static PathConfig()
         {

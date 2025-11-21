@@ -8,6 +8,7 @@ namespace Asahi.Models
 {
     public class AppConfigModel
     {
+        public string CurrentRecipe { get; set; } = "Default";
         public bool LogAllImages { get; set; } = true;
         public bool ShouldLog(string cameraName, string result)
         {

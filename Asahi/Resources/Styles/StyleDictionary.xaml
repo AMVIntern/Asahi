@@ -8,6 +8,8 @@
 
     <resources:BoolToVisiblityConverter x:Key="BoolToVisibilityConverter"/>
     <resources:StatusToColorConverter x:Key="StatusToColorConverter" />
+    <resources:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
+    <resources:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 
     <Color x:Key="PrimaryColour">#14A79D</Color>
     <Color x:Key="LightPrimaryBackground">White</Color>
