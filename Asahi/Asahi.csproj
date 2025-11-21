@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
-    <PackageReference Include="MVTec.HalconDotNet-Windows" Version="25110.0.0" />
+    <PackageReference Include="MVTec.HalconDotNet-Windows" Version="25050.0.0" />
 	<PackageReference Include="Serilog" Version="4.3.0" />
   </ItemGroup>
 	<ItemGroup>

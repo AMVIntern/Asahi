@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -32,6 +33,9 @@ namespace Asahi.ViewModels
         public event Action? StatusChanged;
         private readonly string _cameraId;
         public string CameraId => _cameraId;
+        
+        [ObservableProperty]
+        private bool showStatusIndicator = true;
 
         private readonly HomeViewModel _homeViewModel;
         private readonly MultiCameraImageStore _imageStore;
@@ -58,30 +62,24 @@ namespace Asahi.ViewModels
         {
             AppLogger.Info($"[{_cameraId}] inside on Image Captured");
 
-            Image = _imageStore.GetImage(_cameraId);
+            var newImage = _imageStore.GetImage(_cameraId);
+            AppLogger.Info($"[{_cameraId}] Retrieved image from store. IsNull: {newImage == null}, IsInitialized: {newImage?.IsInitialized() ?? false}");
 
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            AppLogger.Info($"[{Title}] Timestamp: {timestamp}");
-
-            var triggerId = _triggerSessionManager.GetOrCreateTriggerId(timestamp);
-            Debug.WriteLine($"```````````````````````````````````````````````````````` Cam ID: {_cameraId}, Trigger ID: {triggerId}, Current Trigger ID: {_triggerSessionManager.CurrentTriggerId}");
-
-            lock (TriggerRegistrationLock)
+            var dispatcher = Application.Current?.Dispatcher;
+            if (dispatcher != null && !dispatcher.CheckAccess())
             {
-                if (_triggerSessionManager.AssignedTriggerId != _triggerSessionManager.CurrentTriggerId && _triggerSessionManager.AssignedTriggerBool == false)
+                dispatcher.Invoke(() =>
                 {
-                    //_collectorInspectionModel.InspectionFail = false;
-                    //_plcCommsService.SendInspectionComplete(0);
-                    //_inspectionCycleManager.RegisterTrigger(triggerId, new Dictionary<string, int>
-                    //{
-                    //    ["Cam1"] = 1,
-                    //    ["Cam2"] = 1,
-                    //});
-                    //_triggerSessionManager.AssignedTriggerId = _triggerSessionManager.CurrentTriggerId;
-                    //_triggerSessionManager.AssignedTriggerBool = true;
-                }
-
+                    Image = newImage;
+                    AppLogger.Info($"[{_cameraId}] Image property updated on UI thread. Image is now: {(Image?.IsInitialized() ?? false ? "Initialized" : "Null/Not Initialized")}");
+                });
             }
+            else
+            {
+                Image = newImage;
+                AppLogger.Info($"[{_cameraId}] Image property updated (already on UI thread). Image is now: {(Image?.IsInitialized() ?? false ? "Initialized" : "Null/Not Initialized")}");
+            }
+
         }
         partial void OnStatusChanged(CameraStatus oldValue, CameraStatus newValue)
         {

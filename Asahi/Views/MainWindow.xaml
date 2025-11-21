@@ -25,40 +25,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ContentControl Grid.Column="0"
-        Content="{Binding CurrentViewModel}"/>
-            <Border Grid.Column="0"
-                Background="Transparent"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Stretch">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Button Grid.Row="1"
-                        Content="Trigger"
-                        Command="{Binding TriggerInspectionCommand}"
-                        Style="{StaticResource NavigationPrimaryButton}"
-                        Margin="20"
-                        HorizontalAlignment="Stretch"
-                        MinWidth="145"
-                        MinHeight="150"
-                        FontSize="30"
-                        Width="Auto"/>  
-                </Grid>
-            </Border>
-            <!-- Modal Overlay 
-            <Grid Grid.ColumnSpan="2"
-               Background="#80000000"
-               Visibility="{Binding IsModalOpen, 
-               Converter={StaticResource BoolToVisibilityConverter}}"
-               Panel.ZIndex="999"
-               HorizontalAlignment="Stretch"
-               VerticalAlignment="Stretch">
-
-                <ContentControl Content="{Binding ModalViewModel}"/>
-            </Grid> -->
+            <ContentControl Grid.Column="1"
+        Content="{Binding CurrentViewModel}"/>           
         </Grid>
     </Grid>
 </Window>

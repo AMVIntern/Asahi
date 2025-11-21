@@ -73,7 +73,12 @@ namespace Asahi.ViewModels
 
         private void OnCamImageCaptured()
         {
-            Image = _imageStore.GetImage(_cameraId);
+            var img = _imageStore.GetImage(_cameraId);
+
+            if (img != null && img.IsInitialized())
+            {
+                Image = img;
+            }
         }
 
         [RelayCommand]

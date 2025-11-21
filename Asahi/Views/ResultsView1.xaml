@@ -6,7 +6,33 @@
              xmlns:local="clr-namespace:Asahi.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="ID" FontWeight="Bold" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Name" FontWeight="Bold" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Status" FontWeight="Bold" Margin="5" Foreground="White"/>
+
+        <!-- Row 1 -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="001" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Item A" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="OK" Margin="5" Foreground="White"/>
+
+        <!-- Row 2 -->
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="002" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Item B" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="FAIL" Margin="5" Foreground="White"/>
     </Grid>
+
 </UserControl>

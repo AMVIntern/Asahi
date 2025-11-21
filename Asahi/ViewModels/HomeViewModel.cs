@@ -117,6 +117,44 @@ namespace Asahi.ViewModels
             try
             {
                 AppLogger.Info("[Trigger] Manual inspection triggered");
+                AppLogger.Info("[Loading] Set IsLoading = true (trigger pressed)");
+
+                _imageStore.ClearImages();
+
+                if (AppEnvironment.IsOfflineMode)
+                {
+                    foreach (var source in _imageSources)
+                    {
+                        if (source is FolderImageLoader folderLoader)
+                        {
+                            try
+                            {
+                                await folderLoader.GrabNextFrameAsync();
+                            }
+                            catch (Exception ex)
+                            {
+                                AppLogger.Error($"[Trigger] Failed to grab frame from FolderImageLoader ({folderLoader.CameraId}): {ex.Message}", ex);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var source in _imageSources)
+                    {
+                        if (source is CameraImageLoader cameraLoader)
+                        {
+                            try
+                            {
+                                await cameraLoader.GrabNextFrameAsync();
+                            }
+                            catch (Exception ex)
+                            {
+                                AppLogger.Error($"[Trigger] Failed to grab frame from CameraImageLoader ({cameraLoader.CameraId}): {ex.Message}", ex);
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
