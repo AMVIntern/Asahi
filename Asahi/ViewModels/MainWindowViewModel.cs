@@ -1,8 +1,10 @@
-﻿using Asahi.Base;
+﻿using Asahi.AppCycleManager;
+using Asahi.Base;
 using Asahi.DataServices;
 using Asahi.Models;
 using Asahi.Navigation.Stores;
 using Asahi.Stores;
+using Asahi.Vision.Coordinator;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -23,14 +25,19 @@ namespace Asahi.ViewModels
         private readonly ModalStore _modalStore;
         public ViewModelBase? ModalViewModel => _modalStore.ModalViewModel;
         public bool IsModalOpen => _modalStore.IsModalOpen;
+        private readonly MultiCameraImageStore _imageStore;
+        private readonly ImageLogger _imageLogger;
+        private readonly TriggerSessionManager _triggerSessionManager;
 
         public MainWindowViewModel(NavigationStore navigationStore, HomeViewModel homeViewModel, NavigationBarViewModel navigationBarViewModel,
-            RecipeManagerViewModel recipeManagerViewModel,ModalStore modalStore) 
+            RecipeManagerViewModel recipeManagerViewModel,ModalStore modalStore, MultiCameraImageStore imageStore,ImageLogger imageLogger, TriggerSessionManager triggerSessionManager) 
         { 
             _navigationStore = navigationStore;
             _homeViewModel = homeViewModel;
             _modalStore = modalStore;
-
+            _imageLogger = imageLogger;
+            _triggerSessionManager = triggerSessionManager;
+            _imageStore = imageStore;
             _navigationStore.CurrentViewModelChanged += NavigationStore_CurrentViewModelChanged;
             _modalStore.PropertyChanged += ModalStore_PropertyChanged;
             _recipeManagerViewModel = recipeManagerViewModel;
@@ -38,6 +45,11 @@ namespace Asahi.ViewModels
             _navigationStore.RetainViewModel(_homeViewModel);
             NavigationBarViewModel = navigationBarViewModel;
             _recipeManagerViewModel.NavigationBarViewModel = NavigationBarViewModel;
+            var cameraViewModels = new System.Collections.Generic.Dictionary<string, CameraViewModel>
+            {
+                { "Cam1", homeViewModel.Cam1 },
+            };
+            var bootstrapper = new InspectionBoostrapper(imageStore, cameraViewModels, imageLogger, triggerSessionManager, recipeManagerViewModel, homeViewModel);
         }
         [RelayCommand]
         private async Task TriggerInspection()

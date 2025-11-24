@@ -1,11 +1,14 @@
 ﻿using Asahi.AppCycleManager;
 using Asahi.DataServices;
+using Asahi.Helpers;
 using Asahi.ImageSources;
 using Asahi.Models;
 using Asahi.Navigation.Stores;
 using Asahi.Stores;
 using Asahi.ViewModels;
 using Asahi.Views;
+using Asahi.Vision.Handlers.Core;
+using HalconDotNet;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Configuration;
@@ -39,7 +42,7 @@ namespace Asahi
                     .AddSingleton<TriggerSessionManager>()
                     .AddSingleton<ImageAcquisitionModel>()
                     .AddSingleton<CameraFrameGrabber>()
-                    .AddSingleton<ImageLogger>()
+                    .AddSingleton<ImageLoggingService>()
                     .AddSingleton<ImageLoggingService>()
                     .AddSingleton<RecipeManagerViewModel>()
                     .AddSingleton<NavigationBarViewModel>(provider =>
@@ -57,11 +60,16 @@ namespace Asahi
                     .AddSingleton<DefaultRecipeValuesModel>()
                     .AddSingleton<RecipeParameterStore>()
                     .AddSingleton<RecipeStore>()
-                    .AddSingleton<ModalStore>();
+                    .AddSingleton<ModalStore>()
+                    .AddSingleton<InspectionContext>()
+                    .AddSingleton<ImageAcquisitionModel>()
+                    .AddSingleton<ImageAcquisitionViewModel>();
                 }).Build();
         }
         protected override async void OnStartup(StartupEventArgs e)
         {
+            _ = _host.Services.GetRequiredService<ImageAcquisitionViewModel>();
+
             var recipeManagerViewModel = _host.Services.GetRequiredService<RecipeManagerViewModel>();
             await recipeManagerViewModel.InitializeAsync();
 

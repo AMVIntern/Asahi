@@ -14,6 +14,8 @@
     <PackageReference Include="MVTec.HalconDotNet-Windows" Version="25050.0.0" />
 	<PackageReference Include="Serilog" Version="4.3.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	<PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
+	<PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
   </ItemGroup>
 	<ItemGroup>
 		<None Remove="Resources\Logos\AMVLogoWhiteBorder.png" />

@@ -8,6 +8,7 @@ using Asahi.Interfaces;
 using Asahi.Models;
 using Asahi.Navigation.Stores;
 using Asahi.Stores;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.IO;
 
 namespace Asahi.ViewModels
@@ -24,6 +25,12 @@ namespace Asahi.ViewModels
         private readonly CameraFrameGrabber _cameraFrameGrabber;
         private readonly TriggerSessionManager _triggerSessionManager;
         private readonly CancellationTokenSource _cts = new();
+
+        [ObservableProperty]
+        private string[]? barcodeResults;
+
+        [ObservableProperty]
+        private string barcodeDisplayText = "No barcode detected";
         public HomeViewModel(NavigationStore navigationStore, MultiCameraImageStore imageStore,ImageLogger imageLogger, 
             ImageAcquisitionModel imageAcquisitionModel, CameraFrameGrabber cameraFrameGrabber, TriggerSessionManager triggerSessionManager)
         {

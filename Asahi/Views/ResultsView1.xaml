@@ -10,29 +10,29 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
         <!-- Header -->
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="ID" FontWeight="Bold" Margin="5" Foreground="White"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Name" FontWeight="Bold" Margin="5" Foreground="White"/>
-        <TextBlock Grid.Row="0" Grid.Column="2" Text="Status" FontWeight="Bold" Margin="5" Foreground="White"/>
+        <TextBlock Grid.Row="0" Text="Barcode Results" FontWeight="Bold" FontSize="16" Margin="5" Foreground="White"/>
 
-        <!-- Row 1 -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="001" Margin="5" Foreground="White"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Item A" Margin="5" Foreground="White"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="OK" Margin="5" Foreground="White"/>
-
-        <!-- Row 2 -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="002" Margin="5" Foreground="White"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="Item B" Margin="5" Foreground="White"/>
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="FAIL" Margin="5" Foreground="White"/>
+        <!-- Barcode Display -->
+        <Border Grid.Row="1" 
+                BorderBrush="Gray" 
+                BorderThickness="1" 
+                CornerRadius="5" 
+                Padding="10" 
+                Margin="5"
+                Background="#333">
+            <StackPanel>
+                <TextBlock FontSize="30"  Text="Detected Barcode:" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="White"/>
+                <TextBlock Text="{Binding BarcodeDisplayText}" 
+                           FontSize="30" 
+                           FontWeight="Bold"
+                           Foreground="LightGreen"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
     </Grid>
 
 </UserControl>

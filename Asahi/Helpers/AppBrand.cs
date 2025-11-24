@@ -13,7 +13,7 @@ namespace Asahi.Helpers
         public static string Publisher => "AMV";
         public const string Version = "0.0";
 
-        public static string InstallPath => $@"C:\{Publisher}\{AppFolderName}\{Version}";
-        public static string ProgramDataPath => $@"C:\ProgramData\{Publisher}\{AppFolderName}\{Version}";
+        public static string InstallPath => $@"C:\{Publisher}\{AppFolderName}";
+        public static string ProgramDataPath => $@"C:\ProgramData\{Publisher}\{AppFolderName}";
     }
 }
